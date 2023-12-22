@@ -1,45 +1,116 @@
-<!-- index.html -->
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI QR Generator</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffe4e1; /* MistyRose - a hint of elegance */
+            margin: 0;
+            padding: 0;
+        }
 
-{% block content %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand"href="{% url 'index' %}">AI QR Generator</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            
-        </ul>
-    </div>
-</nav>
+        nav {
+            background-color: #ff6666; /* LightCoral - a touch of pink */
+            padding: 10px;
+        }
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-8">
-            
-            <ul class="list-group">
-                {% for data in data_list %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>{{ data.data }}</span>
-                        <img src="{% url 'generate_qr' data.id %}" alt="QR Code" class="img-thumbnail">
-                        <a href="{% url 'generate_qr' data.id %}" download="qrcode.png" class="btn btn-success btn-sm ml-2">Download</a>
-                    </li>
-                {% endfor %}
+        .navbar-brand {
+            color: #fff;
+            font-size: 1.8rem;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+        .list-group-item {
+            background-color: #ffd699; /* PeachPuff - a subtle shade */
+            margin-top: 10px;
+        }
+
+        .img-thumbnail {
+            border: 4px solid #ff6666; /* LightCoral border */
+        }
+
+        .btn-success {
+            background-color: #4caf50; /* Green - a fresh touch */
+            border-color: #4caf50;
+        }
+
+        .btn-success:hover {
+            background-color: #45a049; /* A darker twist of green */
+            border-color: #45a049;
+        }
+
+        .card {
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            color: #ff6666; /* LightCoral - matching the navbar */
+            font-size: 2rem;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .btn-primary {
+            background-color: #2196F3; /* DodgerBlue - a cool touch */
+            border-color: #2196F3;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e87f0; /* A darker twist of blue */
+            border-color: #1e87f0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'index' %}">AI QR Generator</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                
             </ul>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title mb-4">Add New Data</h2>
-                    <form method="post" action="{% url 'index' %}">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="btn btn-primary btn-block">Generate</button>
-                    </form>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                
+                <ul class="list-group">
+                    {% for data in data_list %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{ data.data }}</span>
+                            <img src="{% url 'generate_qr' data.id %}" alt="QR Code" class="img-thumbnail">
+                            <a href="{% url 'generate_qr' data.id %}" download="qrcode.png" class="btn btn-success btn-sm ml-2">Download</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title mb-4">Add anything to turn into QR code</h2>
+                        <form method="post" action="{% url 'index' %}">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary btn-block">Generate</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-{% endblock %}
+</body>
+</html>
