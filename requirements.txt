@@ -1,4 +1,3 @@
 Django
 qrcode
 bootstrap4
-psycopg2-binary
