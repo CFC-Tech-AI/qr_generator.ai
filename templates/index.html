@@ -112,5 +112,14 @@
             </div>
         </div>
     </div>
+
+    <button class="btn btn-primary ml-auto" onclick="clearData()">Clear All Data</button>
+    <script>
+        // JavaScript function to trigger data deletion
+        function clearData() {
+            
+            window.location.href = "{% url 'clear_data' %}";
+        }
+    </script>
 </body>
 </html>

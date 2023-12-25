@@ -1,3 +1,4 @@
+# views.py
 
 from django.shortcuts import render, get_object_or_404, redirect
 import qrcode
@@ -24,6 +25,10 @@ def generate_qr(request, data_id):
     response = HttpResponse(buffer.getvalue(), content_type="image/png")
     return response
 
+def clear_data(request):
+    QRData.objects.all().delete()
+    return HttpResponse("All QRData objects deleted.")
+
 def index(request):
     if request.method == 'POST':
         form = QRDataForm(request.POST)
@@ -33,9 +38,5 @@ def index(request):
     else:
         form = QRDataForm()
 
-    # Clear all data on page load (uncomment the line below if needed)
-    
-
     data_list = QRData.objects.all()
     return render(request, 'index.html', {'data_list': data_list, 'form': form})
-QRData.objects.all().delete()
